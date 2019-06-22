@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:orientation="horizontal"
+
+              android:layout_height="wrap_content">
+
+
+    <ImageView
+            android:id="@+id/product_image"
+            android:layout_width="76dp"
+               android:layout_height="76dp"
+               android:layout_margin="8dp"
+               tools:src="@drawable/ic_launcher_background"/>
+
+
+    <LinearLayout
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_weight="2"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:fontFamily="casual"
+                android:textColor="@color/black"
+                android:layout_height="match_parent"
+                tools:text="Laptop"/>
+
+        <TextView
+                android:id="@+id/description"
+                android:textSize="12sp"
+                android:layout_weight="2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                tools:text="The ultimate new version of Lenovo Gaming Laptops ..."/>
+    </LinearLayout>
+
+    <ImageView android:layout_width="36dp"
+               android:layout_height="36dp"
+               android:layout_margin="8dp"
+               android:layout_gravity="center"
+               android:src="@drawable/ic_navigate_next"
+    />
+
+</LinearLayout>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".AddProduct">
+
+
+    <include android:id="@+id/prodData" layout="@layout/product_details"/>
+
+    <LinearLayout
+            android:layout_below="@id/preview"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+        <Button android:layout_width="wrap_content"
+                android:text="Upload Data"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@color/silver"
+                android:layout_height="wrap_content"/>
+
+        <Button android:layout_width="wrap_content"
+                android:text="Upload Image"
+                android:background="@color/colorPrimary"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_margin="8dp"
+            android:id="@+id/image_picker"
+            android:orientation="horizontal"
+            android:layout_below="@id/prodData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:text="Select Image : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_expDate_details"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+        <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                   android:src="@drawable/ic_camera_enhance"/>
+
+        <ImageView
+                android:id="@+id/iv_selectImageFromStorage_addProduct"
+                android:layout_width="24dp"
+                   android:layout_height="24dp"
+                   android:src="@drawable/ic_sd_storage"/>
+
+    </LinearLayout>
+
+    <ImageView
+            android:layout_below="@id/image_picker"
+            android:id="@+id/preview"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            tools:src="@drawable/ic_launcher_background"
+            android:scaleType="centerCrop"
+            android:layout_margin="8dp"/>
+
+</RelativeLayout>
