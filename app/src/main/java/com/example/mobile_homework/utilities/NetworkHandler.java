@@ -17,7 +17,7 @@ import java.util.List;
 public class NetworkHandler {
 
 
-    private final String URL = "10.0.2.3/HW/phpserver.php";
+    private final String URL = "10.0.2.2/HW/phpserver.php";
 
     private JSONObject buildAction(String action, Product productٍ) {
         JSONObject jsonAction = new JSONObject();
