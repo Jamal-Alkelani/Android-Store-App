@@ -6,64 +6,95 @@
         android:layout_height="match_parent"
         tools:context=".AddProduct">
 
+    <FrameLayout
 
-    <include android:id="@+id/prodData" layout="@layout/product_details"/>
-
-    <LinearLayout
-            android:layout_below="@id/preview"
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-        <Button android:layout_width="wrap_content"
-                android:text="Upload Data"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:background="@color/silver"
-                android:layout_height="wrap_content"/>
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+            <include android:id="@+id/prodData" layout="@layout/product_details"/>
 
-        <Button android:layout_width="wrap_content"
-                android:text="Upload Image"
-                android:background="@color/colorPrimary"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"/>
-    </LinearLayout>
+            <LinearLayout
+                    android:layout_below="@id/preview"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
 
-    <LinearLayout
-            android:layout_margin="8dp"
-            android:id="@+id/image_picker"
-            android:orientation="horizontal"
-            android:layout_below="@id/prodData"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <TextView
-                android:text="Select Image : "
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_expDate_details"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"/>
+                <Button
+                        android:id="@+id/btn_uploadData_addProduct"
+                        android:layout_width="wrap_content"
+                        android:text="Add new Product"
+                        android:layout_margin="16dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorPrimary"
+                        android:layout_height="wrap_content"/>
 
-        <ImageView android:layout_width="24dp" android:layout_height="24dp"
-                   android:src="@drawable/ic_camera_enhance"/>
+                <!--<Button-->
+                <!--android:id="@+id/btn_uploadImage_addProduct"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:text="Upload Image"-->
+                <!--android:background="@color/colorPrimary"-->
+                <!--android:layout_margin="16dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_height="wrap_content"/>-->
+            </LinearLayout>
 
-        <ImageView
-                android:id="@+id/iv_selectImageFromStorage_addProduct"
-                android:layout_width="24dp"
-                   android:layout_height="24dp"
-                   android:src="@drawable/ic_sd_storage"/>
+            <LinearLayout
+                    android:layout_margin="8dp"
+                    android:id="@+id/image_picker"
+                    android:orientation="horizontal"
+                    android:layout_below="@id/prodData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:text="Select Image : "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_expDate_details"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"/>
 
-    </LinearLayout>
+                <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                           android:src="@drawable/ic_camera_enhance"/>
 
-    <ImageView
-            android:layout_below="@id/image_picker"
-            android:id="@+id/preview"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            tools:src="@drawable/ic_launcher_background"
-            android:scaleType="centerCrop"
-            android:layout_margin="8dp"/>
+                <ImageView
+                        android:id="@+id/iv_selectImageFromStorage_addProduct"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_sd_storage"/>
+
+            </LinearLayout>
+
+            <ImageView
+                    android:layout_below="@id/image_picker"
+                    android:id="@+id/preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    tools:src="@drawable/ic_launcher_background"
+                    android:scaleType="centerCrop"
+                    android:layout_margin="8dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/process_action"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ImageView
+
+                    android:src="#90000000"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            <ProgressBar
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </FrameLayout>
+
 
 </RelativeLayout>

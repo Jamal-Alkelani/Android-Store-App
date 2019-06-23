@@ -15,15 +15,35 @@
             android:layout_height="?attr/actionBarSize">
 
     </android.support.v7.widget.Toolbar>
-    <com.github.ybq.android.spinkit.SpinKitView
-            android:visibility="visible"
+
+    <LinearLayout
+            android:id="@+id/spin_kit"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:id="@+id/spin_kit"
-            style="@style/SpinKitView.Large.DoubleBounce"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:SpinKit_Color="@color/teal"/>
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+        <com.github.ybq.android.spinkit.SpinKitView
+                android:visibility="visible"
+                android:layout_gravity="center"
+                style="@style/SpinKitView.Large.DoubleBounce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:SpinKit_Color="@color/teal"/>
+
+        <TextView
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-light"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:text="Loading Data ..."
+                android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
 
     <ListView
             android:id="@+id/lv_products"

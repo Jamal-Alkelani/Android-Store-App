@@ -1,50 +1,91 @@
 package com.example.mobile_homework;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
 import com.example.mobile_homework.Adapters.ProductListAdapter;
 import com.example.mobile_homework.utilities.NetworkHandler;
-import com.github.ybq.android.spinkit.SpinKitView;
 
-import java.util.ArrayList;
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
-class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
-    private ListView lv_products;
-    private SpinKitView spinKit;
+    static ListView lv_products;
+    static LinearLayout spinKit;
+    public static ProductListAdapter adapter;
+    Context mContext;
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        lv_products=findViewById(R.id.lv_products);
-        spinKit=findViewById(R.id.spin_kit);
+        mContext = this;
 
-        ProductListAdapter adapter=new ProductListAdapter(this,generateFakeData());
+        lv_products = findViewById(R.id.lv_products);
+        spinKit = findViewById(R.id.spin_kit);
+
+        adapter = new ProductListAdapter(this, null);
         lv_products.setAdapter(adapter);
 
-        Toolbar toolbar=findViewById(R.id.tool_bar);
+        Toolbar toolbar = findViewById(R.id.tool_bar);
+        toolbar.setTitle("Pal Shop");
         setSupportActionBar(toolbar);
-        spinKit.setVisibility(View.GONE);
-        lv_products.setVisibility(View.VISIBLE);
 
         lv_products.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                startActivity(new Intent(getApplicationContext(),Details.class));
+                Intent intent=new Intent(getApplicationContext(), Details.class);
+                Product product=adapter.getData(i);
+                intent.putExtra(Details.NAME,product.getName());
+                intent.putExtra(Details.DESCRIPTION,product.getName());
+                intent.putExtra(Details.PDATE,product.getProduction_date());
+                intent.putExtra(Details.EDATE,product.getExpiration_date());
+                intent.putExtra(Details.PID,product.getId());
+                intent.putExtra(Details.IMAGE,product.getPhoto()[1]);
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                adapter.getData(i).getImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
+//                byte[] byteArray = stream.toByteArray();
+//                intent.putExtra(Details.IMAGE,byteArray);
+                startActivity(intent);
             }
         });
 
-        NetworkHandler networkHandler=new NetworkHandler();
+
+        NetworkHandler networkHandler = new NetworkHandler(mContext);
         networkHandler.loadData();
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lv_products.setVisibility(View.GONE);
+        spinKit.setVisibility(View.VISIBLE);
+        NetworkHandler networkHandler = new NetworkHandler(this);
+        networkHandler.loadData();
+    }
+
+    public static void setAdapter(List<Product> data) {
+        if (data.size()==0){
+
+        }else{
+            adapter.setData(data);
+            adapter.notifyDataSetChanged();
+            lv_products.setVisibility(View.VISIBLE);
+            spinKit.setVisibility(View.GONE);
+        }
 
     }
 
@@ -59,29 +100,14 @@ class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.mi_addProduct){
-            startActivity(new Intent(this,AddProduct.class));
+        if (item.getItemId() == R.id.mi_addProduct) {
+            startActivity(new Intent(this, AddProduct.class));
         }
         return true;
 
 
     }
 
-    List<Product> generateFakeData(){
-        ArrayList<Product> fakeData=new ArrayList<Product>();
-        String x[]=new String[2];
-        x[0]="asd";
-        x[1]="asd";
-        for (int i=0;i<15;i++){
-            Product product=new Product("123","Laptop","The Ultimate new brand of Lenovo Gaming Laptop" +
-                    "With the latest features","5-5-2017","none",new String[2]);
-            fakeData.add(product);
-        }
 
-        return fakeData;
-    }
 
-    boolean loadData(){
-        return false;
-    }
 }

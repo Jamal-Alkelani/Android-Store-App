@@ -8,6 +8,14 @@
         android:layout_height="match_parent"
         tools:context=".Details">
 
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
@@ -30,10 +38,12 @@
 
             </TextView>
 
-            <ImageView android:layout_width="match_parent"
-                       android:layout_height="200dp"
-                       android:scaleType="centerCrop"
-                       android:src="@drawable/ic_launcher_background"/>
+            <ImageView
+                    android:id="@+id/iv_image_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher_background"/>
 
             <android.support.design.widget.FloatingActionButton
                     android:id="@+id/fbtn_editProduct_details"
@@ -50,7 +60,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
-
+            android:layout_below="@id/appbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -88,5 +98,27 @@
 
 
     </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>
+
+<RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/process_action"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ImageView
+
+            android:src="#90000000"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    <ProgressBar
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+</RelativeLayout>
+    </FrameLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

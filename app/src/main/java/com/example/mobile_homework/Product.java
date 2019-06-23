@@ -1,5 +1,7 @@
 package com.example.mobile_homework;
 
+import android.graphics.Bitmap;
+
 public class Product {
     private String Id;
     private String name;
@@ -7,7 +9,19 @@ public class Product {
     private String production_date;
     private String expiration_date;
     private String photo[]=new String[2]; //1-->name 2-->photo itself
+    private Bitmap image;
 
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
+    }
+
+    public Product(String ID){
+        setId(ID);
+    }
     public Product(String id, String name, String description, String producation_date, String expiration_date, String[] photo) {
         Id = id;
         this.name = name;
