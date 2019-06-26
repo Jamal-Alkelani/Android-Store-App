@@ -55,10 +55,14 @@
                         android:textColor="@color/black"
                         android:textStyle="bold"/>
 
-                <ImageView android:layout_width="24dp" android:layout_height="24dp"
-                           android:src="@drawable/ic_camera_enhance"/>
+                <ImageView
+                        android:id="@+id/iv_selectImageFromCamera_addProduct"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_camera_enhance"/>
 
                 <ImageView
+                        android:layout_marginLeft="32dp"
                         android:id="@+id/iv_selectImageFromStorage_addProduct"
                         android:layout_width="24dp"
                         android:layout_height="24dp"

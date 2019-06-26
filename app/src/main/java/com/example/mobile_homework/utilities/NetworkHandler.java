@@ -12,10 +12,7 @@ import com.example.mobile_homework.Product;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Base64;
@@ -24,15 +21,14 @@ import java.util.List;
 public class NetworkHandler {
 
 //    https://sbda.000webhostapp.com/Mobile_HW_ServerSide/phpserver.php
-    private final String URL = "https://sbda.000webhostapp.com/Mobile_HW_ServerSide/test.php";
+    private final String URL = "https://sbda.000webhostapp.com/Mobile_HW_ServerSide/phpserver.php";
     private Context mContext;
-    String action;
+    static String action="none";
     public NetworkHandler(Context context) {
         mContext=context;
     }
 
     private JSONObject buildAction(String action, Product productٍ) {
-        action=action;
         JSONObject jsonAction = new JSONObject();
         try {
 
@@ -54,6 +50,7 @@ public class NetworkHandler {
                     jsonAction.put("EDate", productٍ.getExpiration_date());
                     jsonAction.put("PDate", productٍ.getProduction_date());
                     jsonAction.put("image_name", productٍ.getPhoto()[0]); //photo name
+                    jsonAction.put("image_data",convertImageToString(productٍ.getImage()));
 
                     break;
                 case "DeleteProduct":
@@ -80,24 +77,29 @@ public class NetworkHandler {
     }
 
     public boolean addProduct(Product product) {
+        action="AddProduct";
         JSONObject action = buildAction("AddProduct",product);
         new SendDeviceDetails().execute(URL, action.toString());
         return true;
     }
 
     public boolean updateProduct(Product product) {
+        action="UpdateProduct";
+
         JSONObject action = buildAction("UpdateProduct",product);
         new SendDeviceDetails().execute(URL, action.toString());
         return true;
     }
 
     public boolean deleteProduct(Product product) {
+        action="DeleteProduct";
         JSONObject action = buildAction("DeleteProduct",product);
         new SendDeviceDetails().execute(URL, action.toString());
         return true;
     }
 
     public void loadData() {
+        action="none";
         JSONObject action = buildAction("ReadProducts",null);
         new SendDeviceDetails().execute(URL, action.toString());
     }
@@ -127,8 +129,12 @@ public class NetworkHandler {
 
     private class SendDeviceDetails extends AsyncTask<String, Void, String> {
 
+
+
         @Override
         protected String doInBackground(String... params) {
+
+
 
             String data = "";
 
@@ -147,7 +153,8 @@ public class NetworkHandler {
                 httpURLConnection.setRequestMethod("POST");
 
                 httpURLConnection.setDoOutput(true);
-                DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
+                OutputStream outputStream=httpURLConnection.getOutputStream();
+                DataOutputStream wr = new DataOutputStream(outputStream);
                 Log.e("xx","finished");
 
                 wr.writeBytes("" + params[1]);
@@ -181,12 +188,19 @@ public class NetworkHandler {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Log.e("TAG", result); // this is expecting a response code to be sent from your server upon receiving the POST data
-            JSONHandler jsonHandler=new JSONHandler();
-            List<Product> products=jsonHandler.convertJSONToProductObject(result);
-            MainActivity.setAdapter(products);
+
+
             if(action!=null){
-                if(action.equals("UpdateProduct") || action.equals("DeleteProduct"))
-                    Details.process_action.setVisibility(View.GONE);
+                JSONHandler jsonHandler=new JSONHandler(mContext);
+                List<Product> products=jsonHandler.convertJSONToProductObject(result);
+                MainActivity.setAdapter(products);
+                if(action.equals("UpdateProduct") || action.equals("DeleteProduct") || action.equals("AddProduct")) {
+                    Log.e("xx",action);
+//                    Details.process_action.setVisibility(View.GONE);
+                    Intent intent=new Intent(mContext, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(intent);
+                }
             }
 
 

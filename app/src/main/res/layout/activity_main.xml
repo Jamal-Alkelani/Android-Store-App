@@ -8,6 +8,35 @@
         android:background="@drawable/blur3"
         tools:context=".MainActivity">
 
+<LinearLayout
+        android:visibility="gone"
+        android:id="@+id/empty_data_main"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content">
+    <ImageView
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/poop"
+            android:layout_width="250dp"
+            android:layout_height="250dp"/>
+
+    <TextView
+            android:textStyle="bold"
+            android:fontFamily="casual"
+            android:layout_marginTop="16dp"
+            android:paddingRight="32dp"
+            android:textAlignment="center"
+            android:paddingLeft="32dp"
+            android:textSize="28sp"
+            android:textColor="@color/white"
+            android:text="Oh Snap, There is no relevant data to show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+</LinearLayout>
+
     <android.support.v7.widget.Toolbar
             android:id="@+id/tool_bar"
             android:layout_width="match_parent"

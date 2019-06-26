@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     static ListView lv_products;
     static LinearLayout spinKit;
+    static LinearLayout empty_data;
     public static ProductListAdapter adapter;
     Context mContext;
 
@@ -34,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         lv_products = findViewById(R.id.lv_products);
         spinKit = findViewById(R.id.spin_kit);
-
+        empty_data=findViewById(R.id.empty_data_main);
         adapter = new ProductListAdapter(this, null);
         lv_products.setAdapter(adapter);
 
@@ -53,17 +57,21 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(Details.EDATE,product.getExpiration_date());
                 intent.putExtra(Details.PID,product.getId());
                 intent.putExtra(Details.IMAGE,product.getPhoto()[1]);
-//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                adapter.getData(i).getImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
-//                byte[] byteArray = stream.toByteArray();
-//                intent.putExtra(Details.IMAGE,byteArray);
+
+                //sending image from Main to Detilas
+                ImageView toSendImage=view.findViewById(R.id.product_image);
+                toSendImage.invalidate();
+                BitmapDrawable drawable = (BitmapDrawable) toSendImage.getDrawable();
+                Bitmap bitmap = drawable.getBitmap();
+                intent.putExtra(Details.IMAGE,bitmap);
+
                 startActivity(intent);
             }
         });
 
 
-        NetworkHandler networkHandler = new NetworkHandler(mContext);
-        networkHandler.loadData();
+//        NetworkHandler networkHandler = new NetworkHandler(mContext);
+//        networkHandler.loadData();
 
 
     }
@@ -79,10 +87,13 @@ public class MainActivity extends AppCompatActivity {
 
     public static void setAdapter(List<Product> data) {
         if (data.size()==0){
-
+            empty_data.setVisibility(View.VISIBLE);
+            lv_products.setVisibility(View.GONE);
+            spinKit.setVisibility(View.GONE);
         }else{
+            empty_data.setVisibility(View.GONE);
             adapter.setData(data);
-            adapter.notifyDataSetChanged();
+//            adapter.notifyDataSetChanged();
             lv_products.setVisibility(View.VISIBLE);
             spinKit.setVisibility(View.GONE);
         }
