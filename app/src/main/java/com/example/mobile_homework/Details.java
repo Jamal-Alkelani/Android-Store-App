@@ -64,8 +64,9 @@ public class Details extends AppCompatActivity {
 //                        .error(R.drawable.error404)
 //                        .centerCrop()
 //                        .into(image);
-                Bitmap bitmap=intent.getParcelableExtra(IMAGE);
-                image.setImageBitmap(bitmap);
+                byte[] bytes = getIntent().getByteArrayExtra(IMAGE);
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                image.setImageBitmap(bmp);
             }
 //            byte[] byteArray = getIntent().getByteArrayExtra("image");
 //            Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);

@@ -63,8 +63,10 @@ public class MainActivity extends AppCompatActivity {
                 toSendImage.invalidate();
                 BitmapDrawable drawable = (BitmapDrawable) toSendImage.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
-                intent.putExtra(Details.IMAGE,bitmap);
-
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] bytes = stream.toByteArray();
+                intent.putExtra(Details.IMAGE,bytes);
                 startActivity(intent);
             }
         });
